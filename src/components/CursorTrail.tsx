@@ -7,6 +7,22 @@ const DOT_COUNT = 14;
 const BASE_SIZE = 10;
 const FOLLOW_SPEED = 0.25;
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return true;
+  return (
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
+  );
+}
+
+function prefersCoarsePointer(): boolean {
+  if (typeof window === "undefined") return true;
+  return (
+    window.matchMedia?.("(pointer: coarse)")?.matches ??
+    window.matchMedia?.("(hover: none)")?.matches ??
+    false
+  );
+}
+
 export default function CursorTrail() {
   const { mode } = useMode();
   const dotsRef = useRef<HTMLSpanElement[]>([]);
@@ -17,7 +33,7 @@ export default function CursorTrail() {
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
-    if (mode !== "react") {
+    if (mode !== "react" || prefersReducedMotion() || prefersCoarsePointer()) {
       return;
     }
 
@@ -60,7 +76,7 @@ export default function CursorTrail() {
     };
   }, [mode]);
 
-  if (mode !== "react") {
+  if (mode !== "react" || prefersReducedMotion() || prefersCoarsePointer()) {
     return null;
   }
 

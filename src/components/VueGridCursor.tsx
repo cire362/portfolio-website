@@ -5,6 +5,22 @@ import { useMode } from "@/context/ModeContext";
 
 const GRID = 40;
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return true;
+  return (
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
+  );
+}
+
+function prefersCoarsePointer(): boolean {
+  if (typeof window === "undefined") return true;
+  return (
+    window.matchMedia?.("(pointer: coarse)")?.matches ??
+    window.matchMedia?.("(hover: none)")?.matches ??
+    false
+  );
+}
+
 export default function VueGridCursor() {
   const { mode } = useMode();
   const ref = useRef<HTMLDivElement | null>(null);
@@ -13,7 +29,9 @@ export default function VueGridCursor() {
   const current = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (mode !== "vue") return;
+    if (mode !== "vue" || prefersReducedMotion() || prefersCoarsePointer()) {
+      return;
+    }
 
     const el = ref.current;
     if (!el) return;
@@ -42,7 +60,9 @@ export default function VueGridCursor() {
     };
   }, [mode]);
 
-  if (mode !== "vue") return null;
+  if (mode !== "vue" || prefersReducedMotion() || prefersCoarsePointer()) {
+    return null;
+  }
 
   return <div ref={ref} className="vue-grid-cursor" aria-hidden="true" />;
 }

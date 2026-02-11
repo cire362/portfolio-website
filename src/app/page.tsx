@@ -54,17 +54,17 @@ const timeline: {
   {
     title: "Started with JS",
     detail: "Learned fundamentals and browser APIs.",
-    year: "2019",
+    year: "2024",
   },
   {
     title: "Learned React",
     detail: "Built component systems and design tokens.",
-    year: "2020",
+    year: "2025",
   },
   {
-    title: "Mastered NestJS",
+    title: "Meet with NestJS",
     detail: "Services, auth, and scalable API design.",
-    year: "2022",
+    year: "2025",
   },
   {
     title: "Current: Deepening Architecture",
@@ -133,14 +133,12 @@ export default function Home() {
 
   return (
     <div className="relative z-10 min-h-screen">
-      <TheSwitch />
-
       <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-black/70 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="font-display text-sm uppercase tracking-[0.4em] text-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-center sm:text-left font-display text-sm uppercase tracking-[0.25em] sm:tracking-[0.4em] text-white">
             The Glitch Dualist
           </div>
-          <nav className="flex items-center gap-6 text-xs uppercase tracking-[0.2em] text-white/60">
+          <nav className="flex flex-wrap items-center justify-center gap-4 text-xs uppercase tracking-[0.2em] text-white/60 sm:justify-end">
             <a className="transition-colors hover:text-white" href="#hero">
               Hero
             </a>
@@ -157,6 +155,8 @@ export default function Home() {
               Connect
             </a>
           </nav>
+
+          <TheSwitch />
         </div>
       </header>
 
@@ -505,9 +505,40 @@ export default function Home() {
             Connect
           </h2>
           <div className="terminal mt-8">
-            <p>&gt; mailto:kirill@gmail.com</p>
-            <p>&gt; open:telegram</p>
-            <p>&gt; git:profile</p>
+            <p>
+              &gt;{" "}
+              <a
+                className="link-ghost hover-glitch"
+                data-text="mailto:kirillshamanaev1@gmail.com"
+                href="mailto:kirillshamanaev1@gmail.com"
+              >
+                mailto:kirillshamanaev1@gmail.com
+              </a>
+            </p>
+            <p>
+              &gt;{" "}
+              <a
+                className="link-ghost hover-glitch"
+                data-text="open:https://t.me/kii1888"
+                href="https://t.me/kii1888"
+                target="_blank"
+                rel="noreferrer"
+              >
+                open:https://t.me/kii1888
+              </a>
+            </p>
+            <p>
+              &gt;{" "}
+              <a
+                className="link-ghost hover-glitch"
+                data-text="git:https://github.com/cire362"
+                href="https://github.com/cire362"
+                target="_blank"
+                rel="noreferrer"
+              >
+                git:https://github.com/cire362
+              </a>
+            </p>
           </div>
         </div>
       </footer>

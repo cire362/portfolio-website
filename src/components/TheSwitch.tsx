@@ -14,25 +14,30 @@ export default function TheSwitch() {
   ];
 
   return (
-    <div className="fixed top-6 right-6 z-50 flex items-center gap-2 p-1 border border-white/10 bg-black/50 backdrop-blur-md rounded-lg">
+    <div className="relative sm:fixed sm:top-6 sm:right-6 z-50 mx-auto sm:mx-0 mt-1 sm:mt-0 flex w-full sm:w-fit items-center justify-between gap-0 sm:gap-2 p-1 border border-white/10 bg-black/50 backdrop-blur-md rounded-lg max-w-[calc(100vw-1.5rem)]">
       {modes.map((m) => (
         <button
           key={m.id}
           onClick={() => setMode(m.id)}
           className={cn(
-            "relative px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors duration-300",
+            "relative flex-1 sm:flex-none px-3 sm:px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.25em] sm:tracking-widest transition-colors duration-300",
             mode === m.id ? "text-black" : "text-white/50 hover:text-white",
           )}
         >
           {mode === m.id && (
             <motion.div
               layoutId="active-switch"
-              className={cn(
-                "absolute inset-0 rounded shadow-md",
-                mode === "noir" && "bg-white shadow-white/20",
-                mode === "react" && "bg-neon-react shadow-neon-react/50",
-                mode === "vue" && "bg-neon-vue shadow-neon-vue/50",
-              )}
+              className="absolute inset-0 rounded"
+              style={{
+                backgroundColor:
+                  m.id === "noir"
+                    ? "rgba(255,255,255,0.95)"
+                    : "var(--glow-color)",
+                boxShadow:
+                  m.id === "noir"
+                    ? "0 0 18px rgba(255,255,255,0.18)"
+                    : "0 0 22px color-mix(in srgb, var(--glow-color) 45%, transparent)",
+              }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             />
           )}
